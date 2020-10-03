@@ -1,0 +1,38 @@
+.header{
+	padding:15px 10px 40px 10px;
+}
+button.btn-default,a.btn-default{
+	background-color:#a488dd;
+	color:#fff;
+}
+.brand{
+	font-size:20px;
+	color:#a488dd;
+}
+.nav-pills > li.active > a,
+ .nav-pills > li.active > a:focus,
+ .nav-pills > li.active > a:hover{
+	background-color:#a488dd;
+}
+.content-tabs{
+	margin-bottom:20px;
+}
+.digital-contents{
+	margin-top:20px;
+}
+.badge{
+	background-color:#ff3333;
+}
+.btn-link{
+	color:#6838c7;
+}
+.glyphicon-star{
+	color:#a488dd;
+}
+.glyphicon-play-circle{
+	color:#a488dd;
+	font-size:40px;
+}
+.settings{
+	padding:30px 0;
+}
