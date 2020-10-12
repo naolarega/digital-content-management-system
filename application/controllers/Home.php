@@ -1,57 +1,78 @@
 <?php
 class Home extends CI_Controller{
-	public function _remap($page){
+	public function _remap($page, $action){
 		if($page === 'video'){
-			$this->video();
+			$this->video($action);
 		}
 		else if($page === 'music'){
-			$this->music();
+			$this->music($action);
 		}
 		else if($page === 'image'){
-			$this->image();
+			$this->image($action);
 		}
 		else if($page === 'app'){
-			$this->app();
+			$this->app($action);
 		}
 		else if($page === 'book'){
-			$this->book();
+			$this->book($action);
 		}
 		else if($page === 'view_creator'){
-			$this->view_creator();
+			$this->view_creator($action);
 		}
 		else if($page === 'index'){
-			$this->video();
+			$this->video($action);
 		}
 		else{
 			echo $page;
 			show_404();
 		}
 	}
-	public function video(){
+	public function video($action){
 		$header['page'] = 'video';
-		
-		$this->load->view('templates/header',$header);
-		$this->load->view('templates/tag');
-		$this->load->view('pages/home/video');
-		$this->load->view('templates/footer');
+		if(count($action) == 0){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/video');
+			$this->load->view('templates/footer');
+		}
+		else if($action[0] === 'watch'){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/video_watch');
+			$this->load->view('templates/footer');
+		}
 	}
-	public function music(){
+	public function music($action){
 		$header['page'] = 'music';
-		
-		$this->load->view('templates/header',$header);
-		$this->load->view('templates/tag');
-		$this->load->view('pages/home/music');
-		$this->load->view('templates/footer');
+		if(count($action) == 0){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/music');
+			$this->load->view('templates/footer');
+		}
+		else if($action[0] === 'listen'){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/music_listen');
+			$this->load->view('templates/footer');
+		}
 	}
-	public function image(){
+	public function image($action){
 		$header['page'] = 'image';
-		
-		$this->load->view('templates/header',$header);
-		$this->load->view('templates/tag');
-		$this->load->view('pages/home/image');
-		$this->load->view('templates/footer');
+		if(count($action) == 0){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/image');
+			$this->load->view('templates/footer');
+		}
+		else if($action[0] === 'display'){
+			$this->load->view('templates/header',$header);
+			$this->load->view('templates/tag');
+			$this->load->view('pages/home/image_display');
+			$this->load->view('templates/footer');
+		}
 	}
-	public function app(){
+	public function app($action){
 		$header['page'] = 'app';
 		
 		$this->load->view('templates/header',$header);
@@ -59,7 +80,7 @@ class Home extends CI_Controller{
 		$this->load->view('pages/home/app');
 		$this->load->view('templates/footer');
 	}
-	public function book(){
+	public function book($action){
 		$header['page'] = 'book';
 		
 		$this->load->view('templates/header',$header);

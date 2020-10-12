@@ -27,8 +27,16 @@
 				);
 				foreach($videos as $vid){
 					echo "<div class='col-lg-4'>";
-					echo "<div class='well'>".$vid."</div>";
-					echo "</div>";
+					echo "<div class='well'>"."<span class='image-list-title'>".$vid."</span>";
+					echo "<div class='image-list-container'>";
+					echo "<img src='/cdn/images/default_image_thumbnail.jpg' width='200' height='200' />";
+					echo "<div ><button class='btn btn-default'>creator</button>";
+					echo "<span class='glyphicon glyphicon-star'></span>";
+					echo "<span class='glyphicon glyphicon-star'></span>";
+					echo "<span class='glyphicon glyphicon-star'></span>";
+					echo "<span class='glyphicon glyphicon-star'></span>";
+					echo "<span class='glyphicon glyphicon-star'></span></div>";
+					echo "</div></div></div>";
 				}
 			?>
 		</div>

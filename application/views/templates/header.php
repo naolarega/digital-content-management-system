@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-lg-3 brand">
 					<span class="glyphicon glyphicon-globe"></span>
-					<a href="/video" >digital content distribution</a>
+					<a class="home-link" href="/video" >digital content distribution</a>
 				</div>
 				<div class="col-lg-4">
 					<input type="text" class="form-control" />
@@ -39,15 +39,15 @@
 		<div class="content-tabs">
 			<ul class="nav nav-pills nav-justified">
 				<?php if($page =='video')echo '<li class="active">';
-						else echo '<li>'?><a href="/video">videos</a></li>
+						else echo '<li>'?><a class="content-link" href="/video">videos</a></li>
 				<?php if($page =='music')echo '<li class="active">';
-						else echo '<li>'?><a href="/music">musics</a></li>
+						else echo '<li>'?><a class="content-link" href="/music">musics</a></li>
 				<?php if($page =='image')echo '<li class="active">';
-						else echo '<li>'?><a href="/image">images</a></li>
+						else echo '<li>'?><a class="content-link" href="/image">images</a></li>
 				<?php if($page =='app')echo '<li class="active">';
-						else echo '<li>'?><a href="/app">apps</a></li>
+						else echo '<li>'?><a class="content-link" href="/app">apps</a></li>
 				<?php if($page =='book')echo '<li class="active">';
-						else echo '<li>'?><a href="/book">books</a></li>
+						else echo '<li>'?><a class="content-link" href="/book">books</a></li>
 			</ul>
 		</div>
 		<div id="sign-up-modal" class="modal fade" role="dialog">

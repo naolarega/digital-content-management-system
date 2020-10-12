@@ -28,7 +28,7 @@
 				foreach($videos as $vid){
 					echo "<div class='col-lg-offset-1 col-lg-8'>";
 					echo "<div class='well'>".$vid;
-					echo "<br /><span class='glyphicon glyphicon-play-circle'></span>";
+					echo "<br /><span class='play-music glyphicon glyphicon-play-circle'></span>";
 					echo "<br /><button class='btn btn-default btn-sm'>";
 					echo "<span class='glyphicon glyphicon-chevron-left'></span>creator</button>";
 					echo "<span class='glyphicon glyphicon-star'></span>";

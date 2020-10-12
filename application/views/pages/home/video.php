@@ -28,7 +28,7 @@
 				foreach($videos as $vid){
 					echo "<div class='col-lg-6'>";
 					echo "<div class='well'>";
-					echo "<img class='img-thumbnail' src='/public/image/thumb.jpg' /><br />".$vid;
+					echo "<img class='img-thumbnail' src='http://dcms.io/cdn/images/default_video_thumbnail.jpg' /><br />".$vid;
 					echo "<br /><a class='btn btn-default btn-sm' href='view_creator'>";
 					echo "<span class='glyphicon glyphicon-chevron-left'></span>creator</a>";
 					echo "<span class='glyphicon glyphicon-star'></span>";
