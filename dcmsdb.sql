@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2020 at 07:13 PM
+-- Generation Time: Oct 16, 2020 at 11:38 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -83,7 +83,7 @@ CREATE TABLE `content` (
   `description` text NOT NULL,
   `price` float(5,2) NOT NULL,
   `user_id` varchar(6) NOT NULL,
-  `path` varchar(42) NOT NULL,
+  `file_name` varchar(42) NOT NULL,
   `rating` int(1) NOT NULL,
   `tag` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -108,7 +108,11 @@ CREATE TABLE `creator` (
 
 CREATE TABLE `customer` (
   `user_id` varchar(6) NOT NULL,
-  `preference` text NOT NULL
+  `preference` text NOT NULL,
+  `download` mediumtext NOT NULL,
+  `subscription` mediumtext NOT NULL,
+  `favorite` mediumtext NOT NULL,
+  `wishlist` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -148,8 +152,17 @@ CREATE TABLE `user` (
   `last_name` varchar(24) NOT NULL,
   `phone_number` varchar(13) NOT NULL,
   `email` varchar(64) NOT NULL,
-  `password` varchar(60) NOT NULL
+  `password` varchar(32) NOT NULL,
+  `type` char(1) NOT NULL,
+  `profile_image` varchar(24) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `phone_number`, `email`, `password`, `type`, `profile_image`) VALUES
+('0.9544', 'naol', 'naol', 'arega', '0911111111', 'naol@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '');
 
 -- --------------------------------------------------------
 
@@ -173,57 +186,57 @@ CREATE TABLE `video` (
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `admin_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `app`
 --
 ALTER TABLE `app`
-  ADD KEY `content_id` (`content_id`);
+  ADD KEY `app_ibfk_1` (`content_id`);
 
 --
 -- Indexes for table `book`
 --
 ALTER TABLE `book`
-  ADD KEY `content_id` (`content_id`);
+  ADD KEY `book_ibfk_1` (`content_id`);
 
 --
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
-  ADD KEY `content_id` (`content_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `comment_ibfk_1` (`content_id`),
+  ADD KEY `comment_ibfk_2` (`user_id`);
 
 --
 -- Indexes for table `content`
 --
 ALTER TABLE `content`
   ADD PRIMARY KEY (`content_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `content_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `creator`
 --
 ALTER TABLE `creator`
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `creator_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `customer_ibfk_1` (`user_id`);
 
 --
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
-  ADD KEY `content_id` (`content_id`);
+  ADD KEY `image_ibfk_1` (`content_id`);
 
 --
 -- Indexes for table `music`
 --
 ALTER TABLE `music`
-  ADD KEY `content_id` (`content_id`);
+  ADD KEY `music_ibfk_1` (`content_id`);
 
 --
 -- Indexes for table `user`
@@ -235,7 +248,7 @@ ALTER TABLE `user`
 -- Indexes for table `video`
 --
 ALTER TABLE `video`
-  ADD KEY `content_id` (`content_id`);
+  ADD KEY `video_ibfk_1` (`content_id`);
 
 --
 -- Constraints for dumped tables
@@ -245,62 +258,62 @@ ALTER TABLE `video`
 -- Constraints for table `admin`
 --
 ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `app`
 --
 ALTER TABLE `app`
-  ADD CONSTRAINT `app_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`);
+  ADD CONSTRAINT `app_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`);
+  ADD CONSTRAINT `book_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`),
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `content`
 --
 ALTER TABLE `content`
-  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `creator`
 --
 ALTER TABLE `creator`
-  ADD CONSTRAINT `creator_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `creator_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `customer`
 --
 ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`);
+  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `music`
 --
 ALTER TABLE `music`
-  ADD CONSTRAINT `music_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`);
+  ADD CONSTRAINT `music_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `video`
 --
 ALTER TABLE `video`
-  ADD CONSTRAINT `video_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`);
+  ADD CONSTRAINT `video_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `content` (`content_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

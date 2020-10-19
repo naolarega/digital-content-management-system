@@ -8,27 +8,19 @@
 						Sort by
 						<span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a href="#">alphabet</a></li>
-						<li><a href="#">user rate</a></li>
-						<li><a href="#">view</a></li>
+						<li><a href="/book/sort/alphabet">alphabet</a></li>
+						<li><a href="/book/sort/rate">user rate</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="row digital-contents">
 			<?php
-				$videos = array(
-					'1' => 'book title0',
-					'2' => 'book title1',
-					'3' => 'book title2',
-					'4' => 'book title3',
-					'5' => 'book title4',
-					'6' => 'book title5'
-				);
-				foreach($videos as $vid){
-					echo "<div class='col-lg-4'>";
-					echo "<div class='well'>".$vid."</div>";
-					echo "</div>";
+				foreach($contents->result() as $book){
+					echo '<div class="col-lg-4"><div class="well">';
+					echo '<div><img width="200" width="200" src="/cdn/images/content-thumbnail/'.$book->thumbnail.'" /></div>';
+					echo '<div><a href="/book/view/'.$book->content_id.'">'.$book->content_name.'</a></div>';
+					echo '</div></div>';
 				}
 			?>
 		</div>

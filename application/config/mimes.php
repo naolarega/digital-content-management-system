@@ -56,6 +56,7 @@ return array(
 	'z'	=>	'application/x-compress',
 	'xhtml'	=>	'application/xhtml+xml',
 	'xht'	=>	'application/xhtml+xml',
+	'epub'	=>	'application/xhtml+xml',
 	'zip'	=>	array('application/x-zip', 'application/zip', 'application/x-zip-compressed', 'application/s-compressed', 'multipart/x-zip'),
 	'rar'	=>	array('application/x-rar', 'application/rar', 'application/x-rar-compressed'),
 	'mid'	=>	'audio/midi',
@@ -180,5 +181,6 @@ return array(
 	'odt'	=>	'application/vnd.oasis.opendocument.text',
 	'odm'	=>	'application/vnd.oasis.opendocument.text-master',
 	'ott'	=>	'application/vnd.oasis.opendocument.text-template',
-	'oth'	=>	'application/vnd.oasis.opendocument.text-web'
+	'oth'	=>	'application/vnd.oasis.opendocument.text-web',
+	'apk'	=>	'application/vnd.android.package.archive'
 );

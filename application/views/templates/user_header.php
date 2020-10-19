@@ -15,68 +15,47 @@
 			<div class="row">
 				<div class="col-lg-3 brand">
 					<span class="glyphicon glyphicon-globe"></span>
-					digital content distribution
+					<a class="home-link" href="/" >digital content distribution</a>
 				</div>
 				<div class="col-lg-offset-7 col-lg-2">
-					<span class="badge">0</span>
-					<span >user name</span>
-					<button type="button" class="btn btn-default pull-right">
-						<span class="glyphicon glyphicon-user"></span>
-						profile</button>
+					<div class="dropdown">
+						<?php
+							if(get_cookie('dcms_username') != null){
+								echo 
+								'<span class="badge">0</span>
+								<span>';
+								echo get_cookie('dcms_username').'</span>';
+							}
+						?>
+						<?php
+						if(get_cookie('dcms_username') != null){
+						echo '
+						<button type="button" class="btn btn-default pull-right" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-user"></span>
+							profile
+						</button>
+						<ul class="dropdown-menu">';
+						}	
+						if($type == 'admin' and get_cookie('dcms_username') != null){
+							echo '<li><a href="/sign_up/admin"><span class="glyphicon glyphicon-plus"></span> add admin</a></li>
+							';
+						}
+						if(get_cookie('dcms_username') != null){
+						echo '
+							<li><a href="/'.$type.'/setting"><span class="glyphicon glyphicon-edit"></span> update</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-remove"></span> delete account</a></li>
+							<li><a href="/log_out"><span class="glyphicon glyphicon-log-out"></span> log out</a></li>
+						</ul>';
+						}
+						if(get_cookie('dcms_username') == null){
+						echo '
+						<a class="btn btn-default pull-right" href="/log_in">
+							<span class="glyphicon glyphicon-log-in"></span>
+							log in
+						</a>';
+						}
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div id="upload-modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Upload</h4>
-			  </div>
-				<div class="modal-body">
-				<form action="#">
-					<div class="form-group">
-						<div class="col-lg-offset-2 col-lg-6">
-							<button type="button" class="btn btn-default" id="firstname">choose file...</button>
-						</div><br />
-					</div>
-					<div class="form-group">
-						<label for="title" class="col-lg-2 control-label">Title</label>
-						<div class="col-lg-6">
-							<input type="text" class="form-control" id="title" />
-						</div><br />
-					</div>
-					<div class="form-group">
-						<label for="description" class="col-lg-2 control-label">Description</label>
-						<div class="col-lg-6">
-							<textarea class="form-control" row="4" id="description"></textarea>
-						</div><br />
-					</div>
-					<div class="form-group">
-						<label for="tags" class="col-lg-2 control-label">Tags</label>
-						<div class="col-lg-6">
-							<input type="number" class="form-control" id="tags" />
-						</div><br />
-					</div>
-					<div class="form-group">
-						<label for="price" class="col-lg-2 control-label">Price</label>
-						<div class="col-lg-2">
-							<input type="number" class="form-control" id="price" />
-						</div>
-						birr
-						<br />
-					</div>
-					<div class="form-group">
-						<div class="col-lg-offset-5 col-lg-3">
-							<button type="button" class="btn btn-default btn-block">
-								<span class="glyphicon glyphicon-save"></span>
-								Publisher</button>
-						</div>
-					</div>
-				</form>
-				</div>
-			 </div>
-			</div>
-		  </div>

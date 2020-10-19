@@ -3,13 +3,13 @@
 		<div class="form-group">
 			<label for="firstname" class="col-lg-2 control-label">User Name</label>
 			<div class="col-lg-6">
-				<input type="text" class="form-control" id="firstname" />
+				<input type="text" name="username" class="form-control" id="username" />
 			</div>
 		</div><br />
 		<div class="form-group">
 			<label for="firstname" class="col-lg-2 control-label">Password</label>
 			<div class="col-lg-6">
-				<button type="button" class="btn btn-link" id="firstname"> change password</button>
+				<input type="text" name="password" class="form-control" id="password" />
 			</div>
 		</div><br />
 		<div class="form-group">
@@ -21,7 +21,7 @@
 		</div><br />
 		<div class="form-group">
 			<div class="col-lg-offset-5 col-lg-2">
-				<button type="button" class="btn btn-default btn-block">
+				<button type="submit" class="btn btn-default btn-block">
 					<span class="glyphicon glyphicon-save"></span>
 					save setting</button>
 			</div>

@@ -9,16 +9,22 @@
 						<th>Full name</th>
 						<th>Phone number</th>
 					</tr>
+					<?php foreach($queries->result() as $user): ?>
 					<tr>
 						<td>
-							<div class="checkbox">
-								<label><input type="checkbox" value="" /></label>
-							</div>
+							<input type="checkbox" value="<?php echo $user->user_id; ?>" /></label>
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>
+							<span><?php echo $user->user_name; ?></span>
+						</td>
+						<td>
+							<span><?php echo $user->first_name.' '.$user->last_name; ?></span>
+						</td>
+						<td>
+							<span><?php echo $user->phone_number; ?></span>
+						</td>
 					</tr>
+					<?php endforeach; ?>
 				</table>
 			</div>
 			<div class="col-lg-1">

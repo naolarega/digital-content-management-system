@@ -8,27 +8,20 @@
 						Sort by
 						<span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a href="#">alphabet</a></li>
-						<li><a href="#">user rate</a></li>
-						<li><a href="#">view</a></li>
+						<li><a href="/app/sort/alphabet">alphabet</a></li>
+						<li><a href="/app/sort/rate">user rate</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="row digital-contents">
 			<?php
-				$videos = array(
-					'1' => 'app title0',
-					'2' => 'app title1',
-					'3' => 'app title2',
-					'4' => 'app title3',
-					'5' => 'app title4',
-					'6' => 'app title5'
-				);
-				foreach($videos as $vid){
-					echo "<div class='col-lg-2'>";
-					echo "<div class='well'>".$vid."</div>";
-					echo "</div>";
+				foreach($contents->result() as $app){
+					echo '<div class="col-lg-2">';
+					echo '<div class="well">';
+					echo '<img width="100" height="100" src="/cdn/images/content-thumbnail/'.$app->thumbnail.'" />';
+					echo '<a href="/app/view/'.$app->content_id.'">'.$app->content_name.'</a>';
+					echo '</div></div>';
 				}
 			?>
 		</div>

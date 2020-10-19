@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row dashboard-middle-body">
 	<div class="col-lg-3">
 		<div class="well">
 			<ul class="nav nav-pills nav-stacked">

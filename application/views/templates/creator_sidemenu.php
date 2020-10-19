@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row dashboard-middle-body">
 	<div class="col-lg-3">
 		<div class="well">
 			<ul class="nav nav-pills nav-stacked">
@@ -16,5 +16,14 @@
 				<?php if($page =='setting')echo '<li class="active">';
 						else echo '<li>'?><a href="/creator/setting" class="text-center">setting</a></li> 
 			</ul>
+			<?php
+			if(isset($error)){
+				if($error == 'uploaded successfuly'){
+					echo '<div class="alert alert-success">
+					<strong>Success!</strong> '.$page.' uploaded successfuly.
+					</div>';
+				}
+			}
+			?>
 		</div>
 	</div>

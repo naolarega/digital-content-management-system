@@ -7,16 +7,29 @@
 						<th></th>
 						<th>User name</th>
 						<th>Comment</th>
+						<th>content</th>
 					</tr>
+					<?php foreach($queries->result() as $comment): ?>
 					<tr>
 						<td>
-							<div class="checkbox">
-								<label><input type="checkbox" value="" /></label>
-							</div>
+							<input type="checkbox" value="<?php echo $comment->comment_id; ?>" />
 						</td>
-						<td></td>
-						<td></td>
+						<td>
+							<span>
+								<?php echo $comment->comment; ?>
+							</span>
+						</td>
+						<td>
+							<span>
+							<?php
+							$user = $this->db->get_where('user', array('user_id' => $comment->user_id));
+							$user = $creator->result()[0]->user_name;
+							echo $user;
+							?>
+							</span>
+						</td>
 					</tr>
+					<?php endforeach; ?>
 				</table>
 			</div>
 			<div class="col-lg-1">

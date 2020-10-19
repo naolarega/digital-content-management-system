@@ -8,35 +8,27 @@
 						Sort by
 						<span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a href="#">alphabet</a></li>
-						<li><a href="#">user rate</a></li>
-						<li><a href="#">view</a></li>
+						<li><a href="/video/sort/alphabet">alphabet</a></li>
+						<li><a href="/video/sort/rate">user rate</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="row digital-contents">
 			<?php
-				$videos = array(
-					'1' => 'video title0',
-					'2' => 'video title1',
-					'3' => 'video title2',
-					'4' => 'video title3',
-					'5' => 'video title4',
-					'6' => 'video title5'
-				);
-				foreach($videos as $vid){
-					echo "<div class='col-lg-6'>";
-					echo "<div class='well'>";
-					echo "<img class='img-thumbnail' src='http://dcms.io/cdn/images/default_video_thumbnail.jpg' /><br />".$vid;
-					echo "<br /><a class='btn btn-default btn-sm' href='view_creator'>";
-					echo "<span class='glyphicon glyphicon-chevron-left'></span>creator</a>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "</div></div>";
+				foreach($contents->result() as $video){
+					echo '<div class="col-lg-3">';
+					echo '<div class="well">';
+					echo '<img width="180" height="180" src="http://dcms.io/cdn/images/content-thumbnail/'.$video->thumbnail.'" /><br />';
+					echo '<a href="/video/view/'.$video->content_id.'">'.$video->content_name.'</a>';
+					echo '<br /><a class="btn btn-default btn-sm" href="/view_creator/'.$video->user_id.'">';
+					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</a>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '</div></div>';
 				}
 			?>
 		</div>

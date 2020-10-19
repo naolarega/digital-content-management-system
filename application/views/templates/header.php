@@ -17,22 +17,46 @@
 					<span class="glyphicon glyphicon-globe"></span>
 					<a class="home-link" href="/video" >digital content distribution</a>
 				</div>
+				<?php echo validation_errors(); ?>
+				<?php echo form_open($page.'/search'); ?>
 				<div class="col-lg-4">
-					<input type="text" class="form-control" />
+					<input name="search" type="text" class="form-control" />
 				</div>
 				<div class="col-lg-2">
-					<button type="button" class="btn btn-default btn-block">search</button>
+					<button type="submit" class="btn btn-default btn-block">search</button>
 				</div>
-				<div class="col-lg-offset-1 col-lg-1">
-					
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sign-up-modal">
-						<span class="glyphicon glyphicon-plus-sign"></span>
-						sign up</button>
-				</div>
-				<div class="col-lg-1">
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#log-in-modal">
+				<div class="col-lg-offset-2 col-lg-1">
+				</form>
+				<?php
+					if($page == 'sign_up' and $is_loged_in == false){
+					echo '
+					<a class="btn btn-default" href="/log_in">
 						<span class="glyphicon glyphicon-log-in"></span>
-						log in</button>
+						log in
+					</a>';
+					}
+					else if($page == 'log_in' and $is_loged_in == false){
+					echo '
+					<a class="btn btn-default" data-toggle="modal" data-target="#sign_up_option_modal">
+						<span class="glyphicon glyphicon-plus-sign"></span>
+						sign up
+					</a>';
+					}
+					else if($is_loged_in == true){
+					echo '
+					<a class="btn btn-default" href="/log_out">
+						<span class="glyphicon glyphicon-log-out"></span>
+						log out
+					</a>';
+					}
+					else{
+					echo '
+					<a class="btn btn-default" href="/log_in">
+						<span class="glyphicon glyphicon-log-in"></span>
+						log in
+					</a>';
+					}
+				?>
 				</div>
 			</div>
 		</div>
@@ -49,116 +73,4 @@
 				<?php if($page =='book')echo '<li class="active">';
 						else echo '<li>'?><a class="content-link" href="/book">books</a></li>
 			</ul>
-		</div>
-		<div id="sign-up-modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h5 class="modal-title">please enter the required information</h5>
-			  </div>
-			  <div class="modal-body">
-				<form action="#">
-				<button class="btn btn-link">
-					<span class="glyphicon glyphicon-user"></span>
-					insert profile image
-				</button>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="user name"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="full name"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="e-mail"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="preference"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="password"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="confirm password"/>
-				</div>
-				<div class="row">
-				<div class="col-lg-offset-4 col-lg-4">
-				<button type="button" class="btn btn-default btn-block">sign up</button>
-				</div>
-				</div>
-				</form>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div id="log-in-modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Log in</h4>
-			  </div>
-			  <div class="modal-body">
-				<form action="#">
-				<span class="glyphicon glyphicon-user"></span>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="user name"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="password"/>
-				</div>
-				<div class="row">
-				<div class="col-lg-offset-4 col-lg-4">
-				<button type="button" class="btn btn-default btn-block">log in</button>
-				</div>
-				</form>
-				</div>
-			  </div>
-			  <div class="modal-footer">
-				<a href="#" class="btn btn-link pull-left" data-toggle="modal" data-dismiss="modal" data-target="#reset-password-modal">forgot password</a>
-				<a href="#" class="btn btn-link pull-right" data-toggle="modal" data-dismiss="modal" data-target="#sign-up-modal">
-					<span class="glyphicon glyphicon-plus-sign"></span>
-					sign up
-				</a>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div id="reset-password-modal" class="modal fade" role="dialog">
-		  <div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Reset password</h4>
-			  </div>
-			  <div class="modal-body">
-				<form action="#">
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="enter your email here"/>
-				</div>
-				<div class="form-group ">
-				<h5>code have been sent to your email</h5>
-				<input type="text" class="form-control" placeholder="enter the code here"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="enter the new password"/>
-				</div>
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="re-enter the password"/>
-				</div>
-				<div class="row">
-				<div class="col-lg-offset-4 col-lg-4">
-				<button type="button" class="btn btn-default btn-block">save</button>
-				</div>
-				</form>
-				</div>
-			  </div>
-			</div>
-		  </div>
 		</div>

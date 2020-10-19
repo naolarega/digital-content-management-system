@@ -8,35 +8,26 @@
 						Sort by
 						<span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a href="#">alphabet</a></li>
-						<li><a href="#">user rate</a></li>
-						<li><a href="#">view</a></li>
+						<li><a href="/music/sort/alphabet">alphabet</a></li>
+						<li><a href="/music/sort/rate">user rate</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div class="row digital-contents">
 			<?php
-				$videos = array(
-					'1' => 'music title0',
-					'2' => 'music title1',
-					'3' => 'music title2',
-					'4' => 'music title3',
-					'5' => 'music title4',
-					'6' => 'music title5'
-				);
-				foreach($videos as $vid){
-					echo "<div class='col-lg-offset-1 col-lg-8'>";
-					echo "<div class='well'>".$vid;
-					echo "<br /><span class='play-music glyphicon glyphicon-play-circle'></span>";
-					echo "<br /><button class='btn btn-default btn-sm'>";
-					echo "<span class='glyphicon glyphicon-chevron-left'></span>creator</button>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "<span class='glyphicon glyphicon-star'></span>";
-					echo "</div></div>";
+				foreach($contents->result() as $music){
+					echo '<div class="col-lg-offset-1 col-lg-8">';
+					echo '<div class="well">'.$music->content_name;
+					echo '<br /><a href="/music/view/'.$music->content_id.'"><span class="play-music glyphicon glyphicon-play-circle"></span></a>';
+					echo '<br /><button class="btn btn-default btn-sm">';
+					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</button>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '</div></div>';
 				}
 			?>
 		</div>
