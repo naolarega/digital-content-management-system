@@ -20,8 +20,8 @@
 					echo '<div class="col-lg-offset-1 col-lg-8">';
 					echo '<div class="well">'.$music->content_name;
 					echo '<br /><a href="/music/view/'.$music->content_id.'"><span class="play-music glyphicon glyphicon-play-circle"></span></a>';
-					echo '<br /><button class="btn btn-default btn-sm">';
-					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</button>';
+					echo '<br /><a class="btn btn-default btn-sm" href="/view_creator/'.$music->user_id.'">';
+					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</a>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2020 at 11:38 AM
+-- Generation Time: Oct 21, 2020 at 07:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `app` (
   `content_id` varchar(7) NOT NULL,
-  `last_update` datetime NOT NULL
+  `platform` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -66,7 +66,8 @@ CREATE TABLE `comment` (
   `user_id` varchar(6) NOT NULL,
   `content_id` varchar(7) NOT NULL,
   `comment_date` datetime NOT NULL,
-  `comment` text NOT NULL
+  `comment` text NOT NULL,
+  `approved` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -85,7 +86,9 @@ CREATE TABLE `content` (
   `user_id` varchar(6) NOT NULL,
   `file_name` varchar(42) NOT NULL,
   `rating` int(1) NOT NULL,
-  `tag` text NOT NULL
+  `tag` text NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `approved` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -154,15 +157,9 @@ CREATE TABLE `user` (
   `email` varchar(64) NOT NULL,
   `password` varchar(32) NOT NULL,
   `type` char(1) NOT NULL,
-  `profile_image` varchar(24) NOT NULL
+  `profile_image` varchar(24) NOT NULL,
+  `status` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `phone_number`, `email`, `password`, `type`, `profile_image`) VALUES
-('0.9544', 'naol', 'naol', 'arega', '0911111111', 'naol@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '');
 
 -- --------------------------------------------------------
 
@@ -172,10 +169,8 @@ INSERT INTO `user` (`user_id`, `user_name`, `first_name`, `last_name`, `phone_nu
 
 CREATE TABLE `video` (
   `content_id` varchar(7) NOT NULL,
-  `width` int(4) NOT NULL,
-  `height` int(4) NOT NULL,
-  `length` varchar(10) NOT NULL,
-  `view` int(12) NOT NULL
+  `view` varchar(10) NOT NULL,
+  `length` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

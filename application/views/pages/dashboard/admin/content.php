@@ -1,6 +1,9 @@
 <div class="col-lg-9">
 	<div class="well">
 		<div class="row">
+			<?php
+				echo form_open('/admin/content/approval');
+			?>
 			<div class="col-lg-12">
 				<table class="table table-striped">
 					<tr>
@@ -39,14 +42,12 @@
 				</table>
 			</div>
 			<div class="col-lg-1">
-				<button class="btn btn-default">approve</button>
+				<button name="approve" value="approve" class="btn btn-default">approve</button>
 			</div>
 			<div class="col-lg-2">
-				<button class="btn btn-default btn-block">disapprove</button>
+				<button name="disapprove" value="disapprove" class="btn btn-default btn-block">disapprove</button>
 			</div>
-			<div class="col-lg-2">
-				<button class="btn btn-default btn-block">view</button>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>

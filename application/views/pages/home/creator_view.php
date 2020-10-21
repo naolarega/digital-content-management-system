@@ -18,7 +18,7 @@
 			else if($content->type == 'image'){
 				array_push($content_list['image'], $content);
 			}
-			else if($content->type == 'book'){
+			else if($content->type == 'app'){
 				array_push($content_list['app'], $content);
 			}
 			else if($content->type == 'book'){
@@ -72,7 +72,7 @@
 				echo '<span class="glyphicon glyphicon-star"></span>';
 				echo '<span class="glyphicon glyphicon-star"></span>';
 				echo '<span class="glyphicon glyphicon-star"></span></div>';
-				echo '</div></div></div>';				
+				echo '</div></div>';				
 			}
 			?>
 		</div>

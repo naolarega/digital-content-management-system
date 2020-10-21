@@ -26,7 +26,11 @@
 					<input name="phonenumber" type="number" class="form-control" id="email" placeholder="phonenumber" value="<?php echo set_value('phonenumber'); ?>">
 					</div>
 					<div class="form-group">
-					<input name="preference" type="text" class="form-control" id="preference" placeholder="preference comma separated" value="<?php echo set_value('preference'); ?>">
+					<select name="preference" class="form-control" id="preference">
+						<option value="general">general</option>
+						<option value="education">education</option>
+						<option value="entertainment">entertainment</option>
+					</select>
 					</div>
 					<div class="form-group">
 					<input name="password" type="password" class="form-control" id="password" placeholder="password">	

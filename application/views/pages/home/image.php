@@ -21,7 +21,8 @@
 					echo '<div class="well"><span>'.$image->content_name.'</span>';
 					echo '<div class="image-list-container">';
 					echo '<a href="/image/view/'.$image->content_id.'"><img src="/cdn/images/content-thumbnail/'.$image->thumbnail.'" width="200" height="200" /></a>';
-					echo '<div ><button class="btn btn-default">creator</button>';
+					echo '<br /><a class="btn btn-default btn-sm" href="/view_creator/'.$image->user_id.'">';
+					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</a>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';

@@ -1,5 +1,10 @@
 <div class="col-lg-9">
 	<div class="well settings">
+	<?php
+		echo validation_errors();
+		echo form_open('/creator/setting');
+		echo '<br />';
+	?>
 		<div class="form-group">
 			<label for="firstname" class="col-lg-2 control-label">User Name</label>
 			<div class="col-lg-6">
@@ -15,7 +20,7 @@
 		<div class="form-group">
 			<label for="firstname" class="col-lg-2 control-label">logout after </label>
 			<div class="col-lg-1">
-				<input type="number" class="form-control" id="firstname" />
+				<input type="number" name="timeout" class="form-control" id="timeout" />
 			</div>
 			<h5> minutes with out activity</h5>
 		</div><br />

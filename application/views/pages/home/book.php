@@ -17,10 +17,12 @@
 		<div class="row digital-contents">
 			<?php
 				foreach($contents->result() as $book){
-					echo '<div class="col-lg-4"><div class="well">';
-					echo '<div><img width="200" width="200" src="/cdn/images/content-thumbnail/'.$book->thumbnail.'" /></div>';
-					echo '<div><a href="/book/view/'.$book->content_id.'">'.$book->content_name.'</a></div>';
-					echo '</div></div>';
+					echo '<a href="/book/view/'.$book->content_id.'"><div class="col-lg-4"><div class="well">';
+					echo '<div><img width="250" width="250" src="/cdn/images/content-thumbnail/'.$book->thumbnail.'" /></div>';
+					echo '<br /><a class="btn btn-default btn-sm" href="/view_creator/'.$book->user_id.'">';
+					echo '<span class="glyphicon glyphicon-chevron-left"></span>creator</a>';
+					echo '<span >'.$book->content_name.'</span>';
+					echo '</div></div></a>';
 				}
 			?>
 		</div>

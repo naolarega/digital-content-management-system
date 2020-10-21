@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-lg-offset-4 col-lg-4 brand">
 					<span class="glyphicon glyphicon-globe"></span>
-					digital content distribution
+					<a class="btn btn-link" href="/">digital content distribution</a>
 				</div>
 			</div>
 			<div class="row">

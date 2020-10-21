@@ -59,11 +59,56 @@ class Creator extends CI_Controller{
 	public function setting($action){
 		$data['page'] = 'setting';
 		$data['type'] = 'creator';
-
-		$this->load->view('templates/user_header', $data);
-		$this->load->view('templates/creator_sidemenu', $data);
-		$this->load->view('pages/dashboard/creator/setting');
-		$this->load->view('templates/footer');
+		
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('username', 'username', 'is_unique[user.user_name]');
+		if($this->form_validation->run() == false){
+			$this->load->view('templates/user_header', $data);
+			$this->load->view('templates/creator_sidemenu', $data);
+			$this->load->view('pages/dashboard/creator/setting');
+			$this->load->view('templates/footer');
+		}
+		else{
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+			$knownfor = $this->input->post('knownfor');
+			$phonenumber = $this->input->post('phonenumber');
+						
+			$cookie_setting = array(
+				'name' => '',
+				'value' => '',
+				'expire' => 86400 * 30,
+				'httponly' => true
+			);
+			$user_info = array();
+			$creator_info = array(
+				'profession' => $knownfor
+			);
+			if($username != null){
+				$user_info['user_name'] = $username;
+				$cookie_setting['name'] = 'dcms_username';
+				$cookie_setting['value'] = $user_info['user_name'];
+				set_cookie($cookie_setting);
+			}
+			if($password != null){
+				$user_info['password'] = md5($password);
+				$cookie_setting['name'] = 'dcms_password';
+				$cookie_setting['value'] = $user_info['password'];
+				set_cookie($cookie_setting);
+			}
+			if($phonenumber != null){
+				$user_info['phone_number'] = $phonenumber;
+			}
+			$this->db->where('user_name', get_cookie('dcms_username', true));
+			$user_id = $this->db->get('user');
+			$user_id = $user->result()[0]->user_id;
+			if($username != null or $password != null){
+				$this->db->where('user_id', $user_id);
+				$this->db->update('user', $user_info);
+			}
+			$this->db->where('user_id', $user_id);
+			$this->db->update('creator', $creator_info);
+		}
 	}
 	
 	public function upload($page){

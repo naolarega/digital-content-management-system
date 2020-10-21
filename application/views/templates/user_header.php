@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/assets/js/popper.min.js"></script>
+		<script type="text/javascript" src="/assets/js/custom.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -43,7 +44,7 @@
 						if(get_cookie('dcms_username') != null){
 						echo '
 							<li><a href="/'.$type.'/setting"><span class="glyphicon glyphicon-edit"></span> update</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-remove"></span> delete account</a></li>
+							<li><a href="/delete_account"><span class="glyphicon glyphicon-remove"></span> delete account</a></li>
 							<li><a href="/log_out"><span class="glyphicon glyphicon-log-out"></span> log out</a></li>
 						</ul>';
 						}

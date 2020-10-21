@@ -3,7 +3,7 @@ class Home extends CI_Controller{
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('form','url','cookie','string'));
+		$this->load->helper(array('form','url','cookie','string', 'date'));
 	}
 	
 	
@@ -31,9 +31,15 @@ class Home extends CI_Controller{
 		else if($page == 'log_out'){
 			$this->log_out($action);
 		}
+		else if($page == 'delete_account'){
+			$this->delete_account($action);
+		}
 		else if($page == 'about'){
 			$this->load->view('pages/home/about');
 			$this->load->view('templates/footer');
+		}
+		else if($page == 'ajax'){
+			$this->ajax();
 		}
 		else{
 			show_404();
@@ -54,6 +60,8 @@ class Home extends CI_Controller{
 		else if(count($action) > 0){
 			if($action[0] == 'view'){
 				$data['content'] = $this->load_content($page, null, $action[1], null, null, 'content_name', null);
+				$this->db->where('content_id', $action[1]);
+				$data['comments'] = $this->db->get('comment');
 				$this->load->view('templates/header',$data);
 				$this->load->view('templates/tag');
 				if($page == 'video'){
@@ -129,6 +137,69 @@ class Home extends CI_Controller{
 		else{
 			$query = $this->db->get_where('content', array('content_id' => $specific_id, 'type' => $type));
 			return $query;
+		}
+	}
+	
+	
+	public function ajax(){
+		$content_id = $this->input->post('content_id');
+		$creator_id = $this->input->post('creator_id');
+		$user_id = $this->input->post('user_id');
+		$user = $this->db->get_where('user', array('user_id' => $user_id));
+		$user = $user->result()[0];
+		if($this->input->post('type') == 'favorite'){
+			if($user->type == '1'){
+				$customer = $this->db->get_where('customer', array('user_id' => $user_id));
+				$customer = $customer->result()[0];
+				$favorite = unserialize($customer->favorite);
+				if(!in_array($content_id, $favorite)){
+					array_push($favorite, $content_id);
+					$favorite = serialize($favorite);
+					$this->db->where('user_id', $user_id);
+					$this->db->update('customer', array('favorite' => $favorite, 'download' => $favorite));
+				}
+			}
+		}
+		else if($this->input->post('type') == 'comment'){
+			$comment = $this->input->post('comment');
+			$user_id = $this->input->post('user_id');
+			$content_id = $this->input->post('content_id');
+			
+			$comment_info = array(
+				"comment_id" => random_string('alnum', 8),
+				"user_id" => $user_id,
+				"content_id" => $content_id,
+				"comment_date" => mdate('%Y-%m-%j %H:%I:00'),
+				"comment" => $comment
+			);
+			
+			$this->db->insert('comment', $comment_info);
+		}
+		else if($this->input->post('type') == 'wishlist'){
+			if($user->type == '1'){
+				$customer = $this->db->get_where('customer', array('user_id' => $user_id));
+				$customer = $customer->result()[0];
+				$wishlist = unserialize($customer->wishlist);
+				if(!in_array($content_id, $wishlist)){
+					array_push($wishlist, $content_id);
+					$wishlist = serialize($wishlist);
+					$this->db->where('user_id', $user_id);
+					$this->db->update('customer', array('wishlist' => $wishlist));
+				}
+			}
+		}
+		else if($this->input->post('type') == 'subscribe'){
+			if($user->type == '1'){
+				$customer = $this->db->get_where('customer', array('user_id' => $user_id));
+				$customer = $customer->result()[0];
+				$subscription = unserialize($customer->subscription);
+				if(!in_array($creator_id, $subscription)){
+					array_push($subscription, $creator_id);
+					$subscription = serialize($subscription);
+					$this->db->where('user_id', $user_id);
+					$this->db->update('customer', array('subscription' => $subscription));
+				}
+			}
 		}
 	}
 
@@ -214,7 +285,12 @@ class Home extends CI_Controller{
 				$user_info['type'] = '1';
 				$more_info = array(
 					'user_id' => $user_id,
-					'preference' => $this->input->post('preference', true)
+					'preference' => $this->input->post('preference', true),
+					'download' => serialize(array()),
+					'subscription' => serialize(array()),
+					'favorite' => serialize(array()),
+					'wishlist' => serialize(array()),
+					
 				);
 				$user_type = 'customer';
 			}
@@ -232,10 +308,8 @@ class Home extends CI_Controller{
 				$access = array(
 					'user',
 					array_key_exists('commentaccess',$this->input->post()) ? ',comment' : '',
-					array_key_exists('uploadaccess',$this->input->post()) ? ',upload' : '',
-					array_key_exists('reportaccess',$this->input->post()) ? ',report' : '',
-					array_key_exists('otheraccess',$this->input->post()) ? ',other' : '');
-				$access = implode($access);
+					array_key_exists('uploadaccess',$this->input->post()) ? ',upload' : '');
+				$access = serialize($access);
 				
 				$more_info = array(
 					'user_id' => $user_id,
@@ -349,6 +423,20 @@ class Home extends CI_Controller{
 			delete_cookie('dcms_password');
 			delete_cookie('dcms_type');
 			
+			redirect('');
+		}
+	}
+	
+	
+	public function delete_account(){
+		if(get_cookie('dcms_username', true) != null){
+			$user = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
+			delete_cookie('dcms_username');
+			delete_cookie('dcms_password');
+			delete_cookie('dcms_type');
+			$user = $user->result()[0]->user_id;
+			$this->db->where('user_id', $user);
+			$this->db->delete('user');
 			redirect('');
 		}
 	}

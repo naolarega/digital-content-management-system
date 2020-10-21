@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
 		<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="/assets/js/popper.min.js"></script>
+		<script type="text/javascript" src="/assets/js/custom.js"></script>
 	</head>
 	<body>
 		<div class="header">
@@ -25,8 +26,8 @@
 				<div class="col-lg-2">
 					<button type="submit" class="btn btn-default btn-block">search</button>
 				</div>
-				<div class="col-lg-offset-2 col-lg-1">
 				</form>
+				<div class="col-lg-offset-2 col-lg-1">
 				<?php
 					if($page == 'sign_up' and $is_loged_in == false){
 					echo '

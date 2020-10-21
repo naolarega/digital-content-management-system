@@ -1,42 +1,46 @@
 <div class="col-lg-9">
 	<div class="well settings">
+	<?php
+		echo validation_errors();
+		echo form_open('/user/setting');
+		echo '<br />';
+	?>
 		<div class="form-group">
-			<label for="firstname" class="col-sm-2 control-label">User Name</label>
+			<label for="username" class="col-sm-2 control-label">User Name</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="firstname" />
+				<input name="username" type="text" class="form-control" id="username" />
 			</div>
 		</div><br />
 		<div class="form-group">
-			<label for="firstname" class="col-sm-2 control-label">Password</label>
+			<label for="password" class="col-sm-2 control-label">Password</label>
 			<div class="col-sm-6">
-				<button type="button" class="btn btn-link" id="firstname"> change password</button>
+				<input name="password" type="text" class="form-control" id="password" />
 			</div>
 		</div><br />
 		<div class="form-group">
-			<label for="firstname" class="col-sm-2 control-label">Preference</label>
-			<div class="col-sm-2">
-				<button type="button" class="btn btn-default btn-block" id="firstname">pref1</button>
-			</div>
-			<div class="col-sm-2">
-				<button type="button" class="btn btn-default btn-block" id="firstname">pref2</button>
-			</div>
-			<div class="col-sm-2">
-				<button type="button" class="btn btn-default" id="firstname">&plus;</button>
-			</div>
+		<label for="preference" class="col-sm-2 control-label">Preference</label>
+		<div class="col-sm-6">
+		<select name="preference" class="form-control" id="preference">
+			<option value="general">general</option>
+			<option value="education">education</option>
+			<option value="entertainment">entertainment</option>
+		</select>
+		</div>
 		</div><br />
 		<div class="form-group">
-			<label for="firstname" class="col-sm-2 control-label">your balance</label>
+			<label for="balance" class="col-sm-2 control-label">your balance</label>
 			<div class="col-sm-6">
-				<button type="button" class="btn btn-link" id="firstname">2500</button>
+				<span>N/A</span> 
 			</div>
 		</div><br />
 		<div class="form-group">
 			<div class="col-lg-offset-5 col-lg-2">
-				<button type="button" class="btn btn-default btn-block">
+				<button name="submit" type="submit" class="btn btn-default btn-block">
 					<span class="glyphicon glyphicon-save"></span>
 					save setting</button>
 			</div>
 		</div>
+		</form>
 	</div>
 </div>
 </div>

@@ -47,12 +47,6 @@
 				<div class="form-group">
 				<label class="checkbox-inline"><input name="uploadaccess" type="checkbox" value="upload">upload</label>
 				</div>
-				<div class="form-group">
-				<label class="checkbox-inline"><input name="reportaccess" type="checkbox" value="report">report</label>
-				</div>
-				<div class="form-group">
-				<label class="checkbox-inline"><input name="otheraccess" type="checkbox" value="other">other</label>
-				</div>
 			</div>
 			</form>
 		</div>
