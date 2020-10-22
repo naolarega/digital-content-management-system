@@ -7,6 +7,9 @@
 					echo '<div class="col-lg-4"><div class="well">';
 					echo '<div><img width="200" width="200" src="/cdn/images/content-thumbnail/'.$book->thumbnail.'" /></div>';
 					echo '<div><a href="/book/view/'.$book->content_id.'">'.$book->content_name.'</a></div>';
+					echo '<span id="'.$book->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_creator_content(this, \'book\')"></span>';
+					echo '<button id="'.$book->content_id.'" data-toggle="modal" data-target="#edit-modal" class="edit btn btn-link" onclick="edit_creator_content(this, \'book\', \'modal\')">
+							<span class="glyphicon glyphicon-edit"></span></button>';
 					echo '</div></div>';
 				}
 			?>

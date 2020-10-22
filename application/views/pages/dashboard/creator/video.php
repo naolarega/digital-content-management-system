@@ -8,6 +8,9 @@
 					echo '<div class="well">';
 					echo '<img width="180" height="180" src="http://dcms.io/cdn/images/content-thumbnail/'.$video->thumbnail.'" /><br />';
 					echo '<a href="/video/view/'.$video->content_id.'">'.$video->content_name.'</a>';
+					echo '<span id="'.$video->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_creator_content(this, \'video\')"></span>';
+					echo '<button id="'.$video->content_id.'" data-toggle="modal" data-target="#edit-modal" class="edit btn btn-link" onclick="edit_creator_content(this, \'video\', \'modal\')">
+							<span class="glyphicon glyphicon-edit"></span></button>';
 					echo '</div></div>';
 				}
 			?>

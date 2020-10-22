@@ -37,6 +37,7 @@
 				echo '<div class="well">';
 				echo '<img width="180" height="180" src="http://dcms.io/cdn/images/content-thumbnail/'.$video->thumbnail.'" /><br />';
 				echo '<a href="/video/view/'.$video->content_id.'">'.$video->content_name.'</a>';
+				echo '<span id="'.$video->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_user(this, \'favorite\')"></span>';
 				echo '</div></div>';
 				}
 				?>
@@ -63,6 +64,7 @@
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
+					echo '<span id="'.$music->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_user(this, \'favorite\')"></span>';
 					echo '</div></div>';				
 				}
 				?>
@@ -90,6 +92,7 @@
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span></div>';
+					echo '<span id="'.$image->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_user(this, \'favorite\')"></span>';
 					echo '</div></div></div>';				
 				}
 				?>
@@ -112,6 +115,7 @@
 					echo '<div class="well">';
 					echo '<img width="100" height="100" src="/cdn/images/content-thumbnail/'.$app->thumbnail.'" />';
 					echo '<a href="/app/view/'.$app->content_id.'">'.$app->content_name.'</a>';
+					echo '<span id="'.$app->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_user(this, \'favorite\')"></span>';
 					echo '</div></div>';
 				}
 				?>
@@ -133,6 +137,7 @@
 					echo '<div class="col-lg-4"><div class="well">';
 					echo '<div><img width="200" width="200" src="/cdn/images/content-thumbnail/'.$book->thumbnail.'" /></div>';
 					echo '<div><a href="/book/view/'.$book->content_id.'">'.$book->content_name.'</a></div>';
+					echo '<span id="'.$book->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_user(this, \'favorite\')"></span>';
 					echo '</div></div>';
 				}
 			?>

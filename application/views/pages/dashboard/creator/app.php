@@ -8,6 +8,9 @@
 					echo '<div class="well">';
 					echo '<img width="100" height="100" src="/cdn/images/content-thumbnail/'.$app->thumbnail.'" />';
 					echo '<a href="/app/view/'.$app->content_id.'">'.$app->content_name.'</a>';
+					echo '<span id="'.$app->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_creator_content(this, \'app\')"></span>';
+					echo '<button id="'.$app->content_id.'" data-toggle="modal" data-target="#edit-modal" class="edit btn btn-link" onclick="edit_creator_content(this, \'app\', \'modal\')">
+							<span class="glyphicon glyphicon-edit"></span></button>';
 					echo '</div></div>';
 				}
 			?>

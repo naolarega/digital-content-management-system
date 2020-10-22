@@ -13,6 +13,9 @@
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span>';
 					echo '<span class="glyphicon glyphicon-star"></span></div>';
+					echo '<span id="'.$image->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_creator_content(this, \'image\')"></span>';
+					echo '<button id="'.$image->content_id.'" data-toggle="modal" data-target="#edit-modal" class="edit btn btn-link" onclick="edit_creator_content(this, \'image\', \'modal\')">
+							<span class="glyphicon glyphicon-edit"></span></button>';
 					echo '</div></div></div>';
 				}
 			?>

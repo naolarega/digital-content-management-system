@@ -26,4 +26,34 @@
 			}
 			?>
 		</div>
+		<div id="edit-modal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title">edit content</h4>
+		</div>
+		<div class="modal-body">
+		<div class="form-group">
+		<input name="title" type="text" class="form-control" id="edit-title" placeholder="title">
+		</div>
+		<div class="form-group">
+		<textarea name="description" class="form-control" rows="5" id="edit-description" placeholder="description"></textarea>
+		</div>
+		<div class="form-group">
+		<select name="tags" class="form-control" id="edit-tags">
+			<option value="general">general</option>
+			<option value="education">education</option>
+			<option value="entertainment">entertainment</option>
+		</select>
+		</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" onclick="edit_creator_content(this, '', 'done')" class="btn btn-default">edit</button>
+		<button type="button" class="edit-cancel btn btn-default" data-dismiss="modal">cancel</button>
+		</div>
+		</div>
+		</div>
+		</div>
 	</div>

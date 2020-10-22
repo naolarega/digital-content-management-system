@@ -3,7 +3,7 @@ class Creator extends CI_Controller{
 	
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('url','cookie','form','string', 'date'));
+		$this->load->helper(array('file', 'url','cookie','form','string', 'date'));
 	}
 	
 	
@@ -17,6 +17,12 @@ class Creator extends CI_Controller{
 			else{
 				$this->creator($page, $action);
 			}
+		}
+		else if($page == 'ajax'){
+			$this->ajax();
+		}
+		else if($page == 'edit'){
+			$this->edit($action);
 		}
 		else if($page == 'setting'){
 			$this->setting($action);
@@ -55,6 +61,52 @@ class Creator extends CI_Controller{
 			}
 		}
 	}
+	
+	
+	public function ajax(){
+		$content_id = $this->input->post('content_id');
+		$type = $this->input->post('type');
+		$action = $this->input->post('action');
+		if($action == 'delete'){
+			$content = $this->db->get_where('content_id', $content_id)->result()[0];
+			$file_name = '';
+			
+			$this->db->where('content_id', $content_id);
+			$this->db->delete('content');
+			if($type == 'video'){
+				$file_name = './dcms-content/user-content/videos/'.$content->file_name;
+			}
+			else if($type == 'music'){
+				$file_name = './dcms-content/user-content/musics/'.$content->file_name;
+			}
+			else if($type == 'image'){
+				$file_name = './dcms-content/user-content/images/'.$content->file_name;
+			}
+			else if($type == 'app'){
+				$file_name = './dcms-content/user-content/apps/'.$content->file_name;
+			}
+			else if($type == 'book'){
+				$file_name = './dcms-content/user-content/books/'.$content->file_name;
+			}
+			unlink($file_name);
+			unlink('./dcms-content/images/content-thumbnail/'.$content->thumbnail);
+		}
+		else if($action == 'edit'){
+			$title = $this->input->post('title');
+			$description = $this->input->post('description');
+			$tags = $this->input->post('tags');
+			$content_info = array();
+			if($title != ""){
+				$content_info['content_name'] = $title;
+			}
+			if($description != ""){
+				$content_info['description'] = $description;
+			}
+			$this->db->where('content_id', $content_id);
+			$this->db->update('content', $content_info);
+		}
+	}
+	
 	
 	public function setting($action){
 		$data['page'] = 'setting';

@@ -75,7 +75,54 @@ class User extends CI_Controller{
 	}
 	
 	public function ajax(){
-		
+		$content_id = $this->input->post('content_id');
+		$type = $this->input->post('type');
+		$user_id = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
+		$user_id = $user_id->result()[0]->user_id;
+		if($type == 'download'){
+			$download = $this->db->get_where('customer', array('user_id' => $user_id));
+			$download = $download->result()[0]->download;
+			$download = unserialize($download);
+			$index = array_search($content_id, $download);
+			unset($download[$index]);
+			sort($download);
+			$download = serialize($download);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('customer', array('download' => $download));
+		}
+		else if($type == 'favorite'){
+			$favorite = $this->db->get_where('customer', array('user_id' => $user_id));
+			$favorite = $favorite->result()[0]->download;
+			$favorite = unserialize($favorite);
+			$index = array_search($content_id, $favorite);
+			unset($favorite[$index]);
+			sort($favorite);
+			$favorite = serialize($favorite);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('customer', array('favorite' => $favorite));
+		}
+		else if($type == 'subscription'){
+			$subscription = $this->db->get_where('customer', array('user_id' => $user_id));
+			$subscription = $subscription->result()[0]->download;
+			$subscription = unserialize($subscription);
+			$index = array_search($content_id, $subscription);
+			unset($subscription[$index]);
+			sort($subscription);
+			$subscription = serialize($subscription);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('customer', array('subscription' => $subscription));
+		}
+		else if($type == 'wishlist'){
+			$wishlist = $this->db->get_where('customer', array('user_id' => $user_id));
+			$wishlist = $wishlist->result()[0]->download;
+			$wishlist = unserialize($wishlist);
+			$index = array_search($content_id, $wishlist);
+			unset($wishlist[$index]);
+			sort($wishlist);
+			$wishlist = serialize($wishlist);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('customer', array('wishlist' => $wishlist));
+		}
 	}
 	
 	public function setting($action){
