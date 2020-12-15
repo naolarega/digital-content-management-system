@@ -1,5 +1,5 @@
 <div class="col-lg-6 col-lg-offset-3 middle-body">
-	<div class="well">
+	<div class="shadow-box sign-up-box well">
 		<div class="row">
 			<?php
 				echo validation_errors();
@@ -23,7 +23,7 @@
 					<input name="email" type="email" class="form-control" id="email" placeholder="email" value="<?php echo set_value('email'); ?>">
 					</div>
 					<div class="form-group">
-					<input name="phonenumber" type="number" class="form-control" id="phonenumber" placeholder="phone number" value="<?php echo set_value('phonenumber'); ?>">
+					<input name="phonenumber" type="number" class="form-control" id="phonenumber" placeholder="phone number { 09xxxxxxxx }" value="<?php echo set_value('phonenumber'); ?>">
 					</div>
 					<div class="form-group">
 					<input name="password" type="password" class="form-control" id="password" placeholder="password">

@@ -1,5 +1,5 @@
 <div class="col-lg-9">
-	<div class="well settings">
+	<div class="well settings top-border">
 	<?php
 		echo validation_errors();
 		echo form_open('/creator/setting');

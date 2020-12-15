@@ -1,5 +1,5 @@
 <div class="col-lg-offset-3 col-lg-6 middle-body">
-	<div class="well">
+	<div class="shadow-box upload-box well">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
 				<?php
@@ -25,7 +25,18 @@
 					<div class="form-group">
 					<input name="author" type="text" class="form-control" id="author" placeholder="author">
 					</div>';
-				}?>
+				}
+				if($page == 'app'){	
+					echo '<div class="form-group">
+					<select name="platform" class="form-control" id="tags">
+						<option value="windows">windows</option>
+						<option value="android">anddroid</option>
+						<option value="linux">linux</option>
+						<option value="macos">macos</option>
+					</select>
+				</div>';
+				}
+				?>
 				<div class="form-group">
 				<textarea name="description" class="form-control" rows="5" id="description" placeholder="description"></textarea>
 				</div>

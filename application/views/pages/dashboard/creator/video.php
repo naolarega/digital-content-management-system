@@ -5,10 +5,18 @@
 			<?php
 				foreach($contents->result() as $video){
 					echo '<div class="col-lg-3">';
-					echo '<div class="well">';
+					echo '<div class="video-list well">';
 					echo '<img width="180" height="180" src="http://dcms.io/cdn/images/content-thumbnail/'.$video->thumbnail.'" /><br />';
-					echo '<a href="/video/view/'.$video->content_id.'">'.$video->content_name.'</a>';
-					echo '<span id="'.$video->content_id.'" class="glyphicon glyphicon-trash" onclick="delete_creator_content(this, \'video\')"></span>';
+					echo '<a class="content-link" href="/video/view/'.$video->content_id.'">'.$video->content_name.'</a><br/>';
+					for($i=0; $i<5; $i++){
+						if($video->rating > $i){
+							echo '<span class="glyphicon glyphicon-star"></span>';
+						}
+						else{
+							echo '<span class="glyphicon glyphicon-star-empty"></span>';
+						}
+					}
+					echo '<button id="'.$video->content_id.'" class="btn btn-link" onclick="delete_creator_content(this, \'video\')"><span class="glyphicon glyphicon-trash"></span></button>';
 					echo '<button id="'.$video->content_id.'" data-toggle="modal" data-target="#edit-modal" class="edit btn btn-link" onclick="edit_creator_content(this, \'video\', \'modal\')">
 							<span class="glyphicon glyphicon-edit"></span></button>';
 					echo '</div></div>';

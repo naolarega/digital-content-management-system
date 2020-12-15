@@ -2,33 +2,58 @@
 		<div class="well">
 			<div class="row">
 				<div class="col-lg-8">
-					<div class="app-container">
-						<?php
-						$app = $content->result()[0];
-						?>
-						<span>app title</span>
-						<img class="app-thumbnail" src="<?php echo '/cdn/images/content-thumbnail/'.$app->thumbnail; ?>" />
-						<div class="app-description">
-							<p>
-								<?php echo $app->description; ?>
-							</p>
-						</div>
-						<a class="btn btn-default" download href="<?php echo '/cdn/user-content/apps/'.$app->file_name; ?>">
-							<span class="glyphicon glyphicon-download"></span>download</a>
-						<?php
-						if(get_cookie('dcms_username') != null){
+					<?php
+						$user = array();
+						$is_payed = false;
+						if(get_cookie('dcms_username') != null){								
 							$user = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
 							$user = $user->result()[0];
+						}
+						$app = $content->result()[0];
+						$app_extra = $this->db->get_where('app', array('content_id' => $app->content_id))->result()[0];
+						if($app->price > 0){
+							if(get_cookie('dcms_type') == 1){
+								$customer = $this->db->get_where('customer', array('user_id' => $user->user_id))->result()[0];
+								$payed_content = unserialize($customer->payed_content);
+								if($payed_content){
+									if(array_search($app->content_id, $payed_content) !== false){
+										$is_payed = true;
+									}
+								}
+							}
+							echo '<h4 class="content-view-title">'.$app->content_name.' <span class="label label-info">payed content</span></h4>';
+						}
+						else{
+							echo '<h4 class="content-view-title">'.$app->content_name.'</h4>';
+						}
+					?>
+					<img width="218" height="218"  class="app-thumbnail" src="<?php echo '/cdn/images/content-thumbnail/'.$app->thumbnail; ?>" /><br/>
+					<div class="content-view-btn">
+						<?php
+						if(get_cookie('dcms_username') != null){
 							$links['facebook'] = 'https://facebook.com/sharer.php?u='.current_url();
 							$links['twitter'] = 'https://twitter.com/intent/tweet?url='.current_url().'&text=dcms&hashtag=dcms';
 							$links['linkedin'] = 'https://www.linkedin.com/sharearticle?url='.current_url().'&mini=true';
 							echo '<input id="content_id" type="hidden" value="'.$app->content_id.'" />';
-							echo '<input id="user_id" type="hidden" value="'.$user->user_id.'" />';
+							echo '<input id="user_id" type="hidden" value="'.$user->user_id.'" />';							
+							echo '<input id="creator_id" type="hidden" value="'.$app->user_id.'" />';
+							if($app->price > 0 and $is_payed or $app->price == 0 or get_cookie('dcms_type') == 3 or $app->user_id == $user->user_id){								
+								echo '<a id="download" class="btn btn-default" download href="/cdn/user-content/apps/'.$app->file_name.'">
+									<span class="glyphicon glyphicon-download"></span>download</a>';
+							}
+							else{								
+								echo '<a id="download" class="disabled btn btn-default" download>
+									<span class="glyphicon glyphicon-download"></span>download</a>';
+							}
 							echo '<a class="btn btn-default" data-toggle="modal" data-target="#comment-modal">
 								<span class="glyphicon glyphicon-comment"></span>comment</a>';
-							echo '<a id="favorite" class="btn btn-default" ><span class="glyphicon glyphicon-thumbs-up"></span>like</a>';
-							echo '<button id="wishlist" class="btn btn-default" ><span class="glyphicon glyphicon-arrow-down"></span>add to wishlist</a>';
-							echo '<div class="dropdown">
+							if(get_cookie('dcms_type') == 1){								
+								echo '<button id="favorite" class="btn btn-default" ><span class="glyphicon glyphicon-thumbs-up"></span>like</button>';
+								if(!$is_payed and $app->price > 0){
+									echo '<button id="wishlist" class="wishlist-btn btn btn-default" ><span class="glyphicon glyphicon-arrow-down"></span>add to wishlist</button>';
+								}
+							}
+							echo '<div class="dropdown" style="display:inline;">
 									<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">share
 									<span class="glyphicon glyphicon-share"></span></button>
 									<ul class="dropdown-menu">
@@ -37,10 +62,47 @@
 									<li><a target="_blank" href="'.$links['linkedin'].'">linkedin</a></li>
 									</ul>
 								</div>';
+							$star_f = '<span class="glyphicon glyphicon-star"></span>';
+							$star_e = '<span class="glyphicon glyphicon-star-empty"></span>';
+							echo '<div class="dropdown" style="display:inline;">
+									<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">rate
+									<span class="glyphicon glyphicon-share"></span></button>
+									<ul class="dropdown-menu">
+										<li><a onclick="rate_content(1)">'.$star_f.$star_e.$star_e.$star_e.$star_e.'</a></li>
+										<li><a onclick="rate_content(2)">'.$star_f.$star_f.$star_e.$star_e.$star_e.'</a></li>
+										<li><a onclick="rate_content(3)">'.$star_f.$star_f.$star_f.$star_e.$star_e.'</a></li>
+										<li><a onclick="rate_content(4)">'.$star_f.$star_f.$star_f.$star_f.$star_e.'</a></li>
+										<li><a onclick="rate_content(5)">'.$star_f.$star_f.$star_f.$star_f.$star_f.'</a></li>
+									</ul>
+								</div>';
+							if($app->price > 0 and get_cookie('dcms_type') == 1 and !$is_payed){
+								echo '<input type="hidden" class="payed-content" value="'.$app->content_id.'" />';
+								echo '<button class="pay-btn btn btn-default" value="payed-content" onclick="payment()">
+									<span class="glyphicon glyphicon-shopping-cart">
+									pay</button>';
+							}
 						}
 						?>
-					<div class="comment-display">
 					</div>
+				</div>
+				<div class="col-lg-4">
+					<div style="display:inline; height:400px;">
+						<h4><span class="dcms-label label label-info">description:</span></h4>
+						<?php
+							echo $app->description; 
+						?>
+						<h4><span class="dcms-label label label-info">platform:</span></h4>
+						<?php
+							echo $app_extra->platform;
+						?>
+					</div>
+					<?php
+						if($app->price > 0 and !$is_payed){
+							echo '<h4><span class="dcms-label label label-info">price:</span></h4>';
+							echo $app->price.' birr';
+						}
+					?>
+				</div>
 					<div id="comment-modal" class="modal fade" role="dialog">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -60,8 +122,10 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="comment-display col-lg-6">
-						<h4>comment</h4>
+						<h4><span class="dcms-label label label-info">comments</span></h4>
 						<?php
 							foreach($comments->result() as $comment){
 								if($comment->approved == true){

@@ -79,3 +79,170 @@ body, hrml{
 .dashboard-middle-body{
 	min-height: calc(100vh - 250px);
 }
+.copyright-container{
+	display: flex;
+	justify-content: center;
+	margin: 20px 0 0 0;
+}
+.email-container{
+	display: block;
+}
+.code-container{
+	display: none;
+}
+.new-password-container{
+	display: none;
+}
+.video-placeholder{
+	width: 640px;
+	height: 360px;
+	border-style: solid;
+	border-radius: 10px;
+}
+.video-list,
+.music-list,
+.image-list,
+.app-list,
+.book-list,
+.side-well,
+.creator-list{
+	box-shadow: 4px 4px 6px #a6a6a6;
+	border-style: solid none none none;
+	border-width: 4px;
+	border-color: #a688dd;
+}
+.side-well{
+	border-style: none solid none none;
+	border-width: 4px;
+	border-color: #6838c7;
+}
+.copyright-text,
+.foot-links,
+.content-link,
+.content-link{
+	color: #6838c7;
+}
+.shadow-box{
+	box-shadow: 4px 4px 6px #a6a6a6;
+}
+.sign-up-box,
+.log-in-box,
+.upload-box,
+.top-border{
+	border-style: solid none none none;
+	border-width: 4px;
+	border-color: #a688dd;
+}
+.footer-box{
+	border-style: solid none none none;
+	border-width: 4px;
+	border-color: #a688dd;
+}
+.profile-img{
+	margin: 0 0 0 10px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #a688dd;
+	padding: 2px;
+}
+.glyphicon-star,
+.glyphicon-star-empty,
+.price-text,
+.name-text,
+.profile-dropdown,
+.glyphicon-trash,
+.glyphicon-sort-by-alphabet,
+.sort-text,
+.sort-text-glyphicon,
+.about-text{
+	color: #6838c7;
+}
+.content-list-well{
+	border-style: solid none none none;
+	border-width: 4px;
+	border-color: #a688dd;
+}
+.dcms-label{
+	background-color: #a487de;
+}
+.app-thumbnail,
+.music-thumbnail,
+.book-thumbnail{
+	display: flex;
+	margin: auto;
+	padding: 5px;
+	border-style: solid;
+	border-width: 4px;
+	border-color: #a688dd;
+	border-radius: 15px;
+}
+.image-viewer,
+.music-player,
+.video-player{
+	display: flex;
+	margin: auto;
+	margin-bottom: 20px; 
+}
+.content-view-title,
+.creator-view-name{
+	text-align: center;
+	color: #6838c7
+}
+.content-view-btn{
+	display: flex;
+	justify-content: center;
+}
+.comment-profile{
+	margin-right: 10px; 
+	border-style: solid;
+	border-width: 2px;
+	border-color: #a688dd;
+	padding: 2px;
+}
+.comment-lists{
+	margin: 10px 0;
+}
+.comment-item{
+	border-style: solid;
+	border-width: 2px;
+	border-color: #a688dd;
+	border-radius: 10px 10px 10px 0;
+	padding: 2px;
+	max-width: 10px;
+	padding: 0 10px;
+}
+.creator-view-profile{
+	display: flex;
+	margin: auto;	
+	border-style: solid;
+	border-width: 4px;
+	border-color: #a688dd;
+	padding: 4px;
+}
+.subscription-btn{
+	display: flex;
+	margin: auto;
+}
+.divider{
+	padding:1px;
+	background-color:  #a688dd;
+}
+.music-list-thumbnail{	
+	border-style: solid;
+	border-width: 2px;
+	border-color: #a688dd;
+	border-radius: 8px;
+	padding: 2px;
+}
+.image-viewer{
+	border-style: solid;
+	border-width: 4px;
+	border-color: #a688dd;
+	border-radius: 8px;
+	padding: 4px;
+}
+.about-middle{
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 310px);
+}

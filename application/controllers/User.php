@@ -1,12 +1,12 @@
 <?php
 class User extends CI_Controller{
-	
+	//constructor function to load codeigniter helpers
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('url','cookie'));
+		$this->load->helper(array('url','cookie','date'));
 	}
 	
-	
+	//function to redirect url to a specific function
 	public function _remap($page, $action){
 		$this->is_logedin();
 		if($page == 'download' or $page == 'subscription' or $page == 'favorite' or
@@ -29,10 +29,11 @@ class User extends CI_Controller{
 		}
 	}
 	
-	
+	//function to process user related functionalities except settings
 	public function user($page, $action){
 		$data['page'] = $page;
 		$data['type'] = 'user';
+		$data['notification'] = $this->notifications();
 		
 		if(count($action) == 0){
 			$query = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
@@ -74,6 +75,38 @@ class User extends CI_Controller{
 		}
 	}
 	
+	//retrives notifications
+	public function notifications(){
+		$this->db->where('user_name',get_cookie('dcms_username', true));
+		$user = $this->db->get('user')->result();
+		$notification = array();
+		if(count($user) > 0){
+			$this->db->where('user_id', $user[0]->user_id);
+			$customer = $this->db->get('customer')->result();
+			if(count($customer) > 0){
+				$subscription = unserialize($customer[0]->subscription);
+				foreach($subscription as $creator){
+					$this->db->where('user_id', $creator);
+					$contents = $this->db->get('content')->result();
+					foreach($contents as $content){
+						$release = human_to_unix($content->release_date);
+						$today= human_to_unix(mdate('%Y-%m-%j %H:%I:00'));
+						$days = ($today-$release)/86400;
+						if($days < 100){
+							array_push($notification, array(
+								'content_name' => $content->content_name,
+								'content_id' => $content->content_id,
+								'content_type' => $content->type 
+							));
+						}
+					}
+				}
+			}
+		}
+		return $notification;
+	}
+	
+	//function to process ajax data for the user
 	public function ajax(){
 		$content_id = $this->input->post('content_id');
 		$type = $this->input->post('type');
@@ -125,11 +158,16 @@ class User extends CI_Controller{
 		}
 	}
 	
+	//setting function for the user to update its information
 	public function setting($action){
 		$data['page'] = 'setting';
 		$data['type'] = 'user';
+		$data['notification'] = $this->notifications();
 		
 		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			', '</div>');
 		$this->form_validation->set_rules('username', 'username', 'is_unique[user.user_name]');
 		if($this->form_validation->run() == false){
 			$this->load->view('templates/user_header', $data);
@@ -173,18 +211,44 @@ class User extends CI_Controller{
 			}
 			$this->db->where('user_id', $user_id);
 			$this->db->update('customer', $customer_info);
+			if($username != null){
+				$cookie_setting['name'] = 'dcms_username';
+				$cookie_setting['value'] = $user_info['user_name'];
+				set_cookie($cookie_setting);
+			}
+			redirect('customer/setting');
 		}
 	}
 	
-	
+	// checks whether user is loged in or not
 	public function is_logedin(){
-		$this->load->helper(array('url','cookie'));
-		/* if(get_cookie('dcms_username', true) == null){
+		if(get_cookie('dcms_username',  true) != null){
+			$user = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
+			$user = $user->result();
+			if(count($user) > 0){
+				if($user[0]->password != get_cookie('dcms_password', true)){					
+					delete_cookie("dcms_username");
+					delete_cookie("dcms_password");
+					delete_cookie("dcms_type");
+					redirect('/log_in');
+				}
+				else if($user[0]->type != 1){
+					delete_cookie("dcms_username");
+					delete_cookie("dcms_password");
+					delete_cookie("dcms_type");
+					redirect('/log_in');
+				}
+			}
+			else{									
+				delete_cookie("dcms_username");
+				delete_cookie("dcms_password");
+				delete_cookie("dcms_type");
+				redirect('/log_in');
+			}
+		}
+		else{
 			redirect('/log_in');
 		}
-		else if(get_cookie('dcms_type', true) != '1'){
-			redirect('/log_in');
-		} */
 	}
 }
 ?>

@@ -1,12 +1,12 @@
 <?php
 class Creator extends CI_Controller{
-	
+	//constructor function to load codeigniter helpers
 	function __construct(){
 		parent::__construct();
 		$this->load->helper(array('file', 'url','cookie','form','string', 'date'));
 	}
 	
-	
+	//function to redirect url to a specific function
 	public function _remap($page, $action){
 		$this->is_logedin();
 		if($page == 'video' or $page == 'music' or $page == 'image' or 
@@ -32,7 +32,7 @@ class Creator extends CI_Controller{
 		}
 	}
 	
-	
+	//function to control creator related functionalities
 	public function creator($page, $action){
 		$data['page'] = $page;
 		$data['type'] = 'creator';
@@ -50,6 +50,7 @@ class Creator extends CI_Controller{
 		if(count($action) > 0){
 			if($action[0] == 'uploaded'){
 				$data['error'] = 'uploaded successfuly';
+				$data['contents'] = $this->db->get_where('content', array('type' => $page, 'user_id' => $creator_id));
 				
 				$this->load->view('templates/user_header', $data);
 				$this->load->view('templates/creator_sidemenu', $data);
@@ -62,13 +63,13 @@ class Creator extends CI_Controller{
 		}
 	}
 	
-	
+	//function to proccess data for ajax
 	public function ajax(){
 		$content_id = $this->input->post('content_id');
 		$type = $this->input->post('type');
 		$action = $this->input->post('action');
 		if($action == 'delete'){
-			$content = $this->db->get_where('content_id', $content_id)->result()[0];
+			$content = $this->db->get_where('content', array('content_id' => $content_id))->result()[0];
 			$file_name = '';
 			
 			$this->db->where('content_id', $content_id);
@@ -90,6 +91,7 @@ class Creator extends CI_Controller{
 			}
 			unlink($file_name);
 			unlink('./dcms-content/images/content-thumbnail/'.$content->thumbnail);
+			echo 'deleted successfuly';
 		}
 		else if($action == 'edit'){
 			$title = $this->input->post('title');
@@ -104,15 +106,19 @@ class Creator extends CI_Controller{
 			}
 			$this->db->where('content_id', $content_id);
 			$this->db->update('content', $content_info);
+			echo 'edited successfuly';
 		}
 	}
 	
-	
+	//creator setting function to update creator informations
 	public function setting($action){
 		$data['page'] = 'setting';
 		$data['type'] = 'creator';
 		
 		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			', '</div>');
 		$this->form_validation->set_rules('username', 'username', 'is_unique[user.user_name]');
 		if($this->form_validation->run() == false){
 			$this->load->view('templates/user_header', $data);
@@ -138,9 +144,6 @@ class Creator extends CI_Controller{
 			);
 			if($username != null){
 				$user_info['user_name'] = $username;
-				$cookie_setting['name'] = 'dcms_username';
-				$cookie_setting['value'] = $user_info['user_name'];
-				set_cookie($cookie_setting);
 			}
 			if($password != null){
 				$user_info['password'] = md5($password);
@@ -153,16 +156,23 @@ class Creator extends CI_Controller{
 			}
 			$this->db->where('user_name', get_cookie('dcms_username', true));
 			$user_id = $this->db->get('user');
-			$user_id = $user->result()[0]->user_id;
+			$user_id = $user_id->result()[0]->user_id;
 			if($username != null or $password != null){
 				$this->db->where('user_id', $user_id);
 				$this->db->update('user', $user_info);
 			}
 			$this->db->where('user_id', $user_id);
 			$this->db->update('creator', $creator_info);
+			if($username != null){
+				$cookie_setting['name'] = 'dcms_username';
+				$cookie_setting['value'] = $user_info['user_name'];
+				set_cookie($cookie_setting);
+			}
+			redirect('creator/setting');
 		}
 	}
 	
+	//function that process uploaded content
 	public function upload($page){
 		$data['page'] = $page;
 		$data['type'] = 'creator';
@@ -246,13 +256,15 @@ class Creator extends CI_Controller{
 				else{
 					$upload_info['thumbnail'] = $this->upload->data('file_name');
 				}
-			
 				if($page == 'book'){
 					$extra_info['author'] = $this->input->post('author', true);
 				}
-				
+				if($page == 'app'){
+					$extra_info['platform'] = $this->input->post('platform', true);
+				}
 				$this->db->insert('content', $upload_info);
 				$this->db->insert($page, $extra_info);
+				//$this->notify($upload_info['content_name'], $upload_info['content_id'], get_cookie('dcms_username', true));
 				
 				$data['error'] = 'uploaded successfuly';
 				redirect('creator/'.$page.'/uploaded/');
@@ -260,14 +272,35 @@ class Creator extends CI_Controller{
 		}
 	}
 	
-	
+	// checks whether creator is loged in or not
 	public function is_logedin(){
-		/* if(get_cookie('dcms_username', true) == null){
+		if(get_cookie('dcms_username',  true) != null){
+			$user = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username', true)));
+			$user = $user->result();
+			if(count($user) > 0){
+				if($user[0]->password != get_cookie('dcms_password', true)){					
+					delete_cookie("dcms_username");
+					delete_cookie("dcms_password");
+					delete_cookie("dcms_type");
+					redirect('/log_in');
+				}
+				else if($user[0]->type != 2){
+					delete_cookie("dcms_username");
+					delete_cookie("dcms_password");
+					delete_cookie("dcms_type");
+					redirect('/log_in');
+				}
+			}
+			else{									
+				delete_cookie("dcms_username");
+				delete_cookie("dcms_password");
+				delete_cookie("dcms_type");
+				redirect('/log_in');
+			}
+		}
+		else{
 			redirect('/log_in');
 		}
-		else if(get_cookie('dcms_type', true) != '2'){
-			redirect('/log_in');
-		} */
 	}
 }
 ?>

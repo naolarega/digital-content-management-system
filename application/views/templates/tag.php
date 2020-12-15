@@ -1,6 +1,6 @@
 <div class="row middle-body">
 	<div class="col-lg-2">
-		<div class="well">
+		<div class="side-well well">
 			<div class="row">
 				<?php
 					$page = $this->uri->segment(1,'video');

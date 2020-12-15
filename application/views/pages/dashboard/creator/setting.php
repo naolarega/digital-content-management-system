@@ -38,7 +38,15 @@
 		<div class="form-group">
 			<label for="firstname" class="col-sm-2 control-label">your balance</label>
 			<div class="col-sm-6">
-				<button type="button" class="btn btn-link" id="balance">N/A</button>
+				<?php
+					if(get_cookie('dcms_username') != null){
+						$user = $this->db->get_where('user', array('user_name' => get_cookie('dcms_username')))->result()[0];
+						echo '<span class="content-link">'.$user->balance.' birr</span>';
+					}
+					else{
+						echo '<button type="button" class="btn btn-link" id="balance">N/A</button>';
+					}
+				?>
 			</div>
 		</div><br />
 		<div class="form-group">

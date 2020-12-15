@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2020 at 07:04 PM
+-- Generation Time: Dec 11, 2020 at 11:09 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -88,7 +88,7 @@ CREATE TABLE `content` (
   `rating` int(1) NOT NULL,
   `tag` text NOT NULL,
   `type` varchar(10) NOT NULL,
-  `approved` tinyint(1) NOT NULL
+  `approved` tinyint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -115,7 +115,8 @@ CREATE TABLE `customer` (
   `download` mediumtext NOT NULL,
   `subscription` mediumtext NOT NULL,
   `favorite` mediumtext NOT NULL,
-  `wishlist` mediumtext NOT NULL
+  `wishlist` mediumtext NOT NULL,
+  `payed_content` mediumtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -158,7 +159,9 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `type` char(1) NOT NULL,
   `profile_image` varchar(24) NOT NULL,
-  `status` varchar(7) NOT NULL
+  `status` varchar(10) NOT NULL,
+  `reset_code` int(5) NOT NULL,
+  `balance` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
