@@ -16,8 +16,13 @@ the below directory.
 ```
 and also add the following virtual host to apache
 virtual host configuration.
-`%path to apche%\config\extra\http_vhost.conf`
+`%path to apache%\config\extra\http-vhost.conf`
 
 ```text
-hello world
+<VirtualHost *:80>
+  DocumentRoot "%path to dcms%/index.php"
+  ServerName dcms.io
+  Alias /assets "%path to dcms%/assets/"
+  Alias /cdn "%path to dcms%/dcms-content/"
+</VirtualHost>
 ```
