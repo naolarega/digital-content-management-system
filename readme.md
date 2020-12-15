@@ -26,3 +26,14 @@ virtual host configuration.
   Alias /cdn "%path to dcms%/dcms-content/"
 </VirtualHost>
 ```
+create `dcmsdb` database, then import the sql structure. 
+setup database credentials inside 
+`%path to dcms%/application/config/database.php`
+
+```text
+$db['default'] = array(
+  ...
+  'password' => '',
+  ...
+)
+```
