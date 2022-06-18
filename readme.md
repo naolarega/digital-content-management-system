@@ -37,3 +37,5 @@ $db['default'] = array(
   ...
 )
 ```
+### Dependencies
+Dont forget to add codeigniter 3 system files.
